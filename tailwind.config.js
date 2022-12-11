@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './index.php',
+    './*.php',
     './clm/*.{php,html,js}'
   ],
   theme: {

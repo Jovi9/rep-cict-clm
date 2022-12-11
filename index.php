@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (isset($_SESSION['auth'])) {
+    header('location: ./clm/app.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +16,6 @@
 </head>
 
 <body>
-
     <div class="md:mt-16 mt-10">
         <div>
             <div class="flex justify-center ">
@@ -36,7 +41,7 @@
             </div>
             <div class="flex justify-center mt-20">
                 <a href="./clm/app.php">
-                    <button onclick="register()" class="shadow-lg w-28 px-5 mx-5 my-5 py-2  text-white font-bold rounded-lg
+                    <button class="shadow-lg w-28 px-5 mx-5 my-5 py-2  text-white font-bold rounded-lg
                     items-center bg-gray-800
                     border border-transparent  text-xs
                      uppercase tracking-widest hover:bg-white hover:text-black hover:border-gray-500
@@ -47,7 +52,7 @@
                     </button>
                 </a>
                 <a href="#">
-                    <button onclick="register()" class="shadow-lg w-28 px-5 mx-5 my-5 py-2  text-black font-bold rounded-lg
+                    <button class="shadow-lg w-28 px-5 mx-5 my-5 py-2  text-black font-bold rounded-lg
                         items-center border-gray-500
                         border border-transparent  text-xs
                          uppercase tracking-widest hover:bg-gray-800 hover:text-white
