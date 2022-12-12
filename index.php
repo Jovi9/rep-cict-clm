@@ -51,7 +51,7 @@ if (isset($_SESSION['auth'])) {
                         Login
                     </button>
                 </a>
-                <a href="#">
+                <a href="./register.php">
                     <button class="shadow-lg w-28 px-5 mx-5 my-5 py-2  text-black font-bold rounded-lg
                         items-center border-gray-500
                         border border-transparent  text-xs

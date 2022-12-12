@@ -13,15 +13,133 @@ if (isset($_SESSION['auth'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="./css/build/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css" />
+    <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
+
+    <?php
+    if (isset($_SESSION['request_failed'])) {
+    ?>
+        <div id="toast-danger" class="mx-auto flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+            <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="sr-only">Error icon</span>
+            </div>
+            <div class="ml-3 text-sm font-normal"><?php echo $_SESSION['request_failed']; ?></div>
+            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-danger" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+    <?php
+        unset($_SESSION['request_failed']);
+    }
+    ?>
+
+    <?php
+    if (isset($_SESSION['id_exist'])) {
+    ?>
+        <div id="toast-danger" class="mx-auto flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+            <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="sr-only">Error icon</span>
+            </div>
+            <div class="ml-3 text-sm font-normal"><?php echo 'Student ID already exist.'; ?></div>
+            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-danger" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+    <?php
+        unset($_SESSION['id_exist']);
+    }
+    ?>
+
+    <?php
+    if (isset($_SESSION['email_exist'])) {
+    ?>
+        <div id="toast-danger" class="mx-auto flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+            <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="sr-only">Error icon</span>
+            </div>
+            <div class="ml-3 text-sm font-normal"><?php echo 'Email already exist.'; ?></div>
+            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-danger" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+    <?php
+        unset($_SESSION['email_exist']);
+    }
+    ?>
+
+    <?php
+    if (isset($_SESSION['reg_success'])) {
+    ?>
+        <div id="toast-success" class="mx-auto flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+            <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="sr-only">Check icon</span>
+            </div>
+            <div class="ml-3 text-sm font-normal">Registration successful. Please check after one day for your account approval.</div>
+            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+    <?php
+        unset($_SESSION['reg_success']);
+    }
+    ?>
+
+    <?php
+    if (isset($_SESSION['reg_failed'])) {
+    ?>
+        <div id="toast-danger" class="mx-auto flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+            <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="sr-only">Error icon</span>
+            </div>
+            <div class="ml-3 text-sm font-normal">Registration failed, something went wrong. Please try again.</div>
+            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-danger" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+    <?php
+        unset($_SESSION['reg_failed']);
+    }
+    ?>
 
     <div class=" flex min-h-full items-center justify-center py-12 px-4  sm:px-6 xl:px-8 ">
         <div class="w-full max-w-sm justify-center ">
             <div class=" p-5 mt-10 rounded-lg shadow-lg bg-white">
 
-                <form action="#" method="POST">
+                <form action="./clm/functions/UserRegistration.php" method="POST">
                     <h2 class="mb-3 text-left text-3xl font-bold tracking-tight text-gray-900">
                         Register
                     </h2>
@@ -33,7 +151,7 @@ if (isset($_SESSION['auth'])) {
                             rounded-md focus:outline-blue-200
                             shadow-sm border-gray-300 focus:border-indigo-300
                             focus:ring focus:ring-indigo-200
-                            focus:ring-opacity-50" type="text" name="student_id" placeholder="Student ID">
+                            focus:ring-opacity-50" type="text" name="student_id" id="student_id" placeholder="Student ID" required>
                     </div>
 
                     <!-- name -->
@@ -43,7 +161,7 @@ if (isset($_SESSION['auth'])) {
                             rounded-md focus:outline-blue-200
                             shadow-sm border-gray-300 focus:border-indigo-300
                             focus:ring focus:ring-indigo-200
-                            focus:ring-opacity-50" type="text" name="name" placeholder="Name">
+                            focus:ring-opacity-50" type="text" name="name" placeholder="Name" required>
                     </div>
 
                     <!-- program -->
@@ -82,7 +200,7 @@ if (isset($_SESSION['auth'])) {
                             rounded-md focus:outline-blue-200
                             shadow-sm border-gray-300 focus:border-indigo-300
                             focus:ring focus:ring-indigo-200
-                            focus:ring-opacity-50" type="email" name="email" placeholder="Email">
+                            focus:ring-opacity-50" type="email" name="email" id="email" placeholder="Email" required>
                     </div>
                     <!--password-->
                     <div class="flex flex-col py-2 text-gray-400">
@@ -90,7 +208,16 @@ if (isset($_SESSION['auth'])) {
                         <input class="text-gray-700 bg-slate-100 mt-2 p-2 rounded-md focus:outline-blue-200
                         shadow-sm border-gray-300 focus:border-indigo-300
                         focus:ring focus:ring-indigo-200
-                         focus:ring-opacity-50" type="password" name="password" placeholder="Password">
+                         focus:ring-opacity-50" type="password" name="password" id="password" placeholder="Password" minlength="8" required>
+                    </div>
+                    <!--confirm password-->
+                    <div class="flex flex-col py-2 text-gray-400">
+                        <label for="" class="block font-medium text-sm text-gray-700">Confirm Password</label>
+                        <input class="text-gray-700 bg-slate-100 mt-2 p-2 rounded-md focus:outline-blue-200
+                        shadow-sm border-gray-300 focus:border-indigo-300
+                        focus:ring focus:ring-indigo-200
+                         focus:ring-opacity-50" type="password" name="password_confirm" id="password_confirm" placeholder="Confirm Password" minlength="8" required>
+                        <span class="text-red-500" id="pass_mismatch"></span>
                     </div>
 
                     <div class="mt-3">
@@ -99,7 +226,7 @@ if (isset($_SESSION['auth'])) {
                         text-white uppercase tracking-widest hover:bg-gray-700
                         active:bg-gray-900 focus:outline-none focus:border-gray-900
                         focus:ring ring-gray-300 disabled:opacity-25 transition
-                        ease-in-out duration-150">
+                        ease-in-out duration-150" name="register" id="btn_register" type="submit">
                             Register
                         </button>
                     </div>
@@ -111,6 +238,19 @@ if (isset($_SESSION['auth'])) {
         </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            $('input#password, input#password_confirm').keyup(function(e) {
+                if ($('#password').val() != $('#password_confirm').val()) {
+                    $(':input[type="submit"]').prop('disabled', true);
+                    $('#pass_mismatch').text("Password do not match.");
+                } else {
+                    $(':input[type="submit"]').prop('disabled', false);
+                    $('#pass_mismatch').text("");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

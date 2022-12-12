@@ -1,4 +1,8 @@
 <?php
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
+    header('HTTP/1.0 403 Forbidden', TRUE, 403);
+    die("<h2>Access Denied!</h2> This file is protected and not available to public.");
+}
 
 require '../model/User.php';
 
@@ -10,12 +14,14 @@ if (!isset($_SESSION['auth'])) {
 
         $user = new User;
         $result = $user->authenticateLogin($email, $password);
-        // echo $result[0]['name'] . "\n\n";
-        // echo $result[0]['program'] . "\n\n";
-        // echo count($result);
-        // var_dump($result);
+
         session_start();
         if (!$result == null) {
+            if ($result[0]['status'] == 'pending') {
+                $_SESSION['pending'] = 'Your account is pending for approval.';
+                header('location: ../../login.php');
+                exit();
+            }
             $_SESSION['auth'] = $result;
             header('location: ../app.php');
             exit();
