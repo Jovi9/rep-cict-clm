@@ -4,7 +4,7 @@
             <a href="./app.php">
                 <div class="relative flex h-16 items-center">
                     <img src="./images/cict-logo.png" alt="Logo" class="object-contain h-16 w-16 ">
-                    <h1 class="font-bold text-gray-500">CICT Profiling</h1>
+                    <h1 class="font-bold text-gray-500">CICT Learning Materials</h1>
                 </div>
             </a>
             <div class="hidden md:flex ">
