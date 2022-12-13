@@ -1,6 +1,16 @@
 <?php
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
+    // header('HTTP/1.0 403 Forbidden', TRUE, 403);
+    // die("<h2>Access Denied!</h2> This file is protected and not available to public.");
+    header('location: ../../index.php');
+    exit();
+}
+
 if ($_SESSION['auth'][0]['role'] === 0) {
 ?>
+    <h2 class="mb-3 text-left text-3xl font-bold tracking-tight text-gray-900">
+        Student Lists
+    </h2>
     <table class="min-w-full border-collapse block md:table">
         <thead class="block md:table-header-group">
             <tr class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative ">
@@ -85,6 +95,6 @@ if ($_SESSION['auth'][0]['role'] === 0) {
     </table>
 <?php
 } else {
-    header('location: ./app.php');
+    header('location: ../app.php');
 }
 ?>

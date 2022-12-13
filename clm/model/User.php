@@ -11,16 +11,6 @@ require  __DIR__ . '/../functions/DataConnection.php';
 
 class User extends DataConnection
 {
-    public $id;
-    public $student_id;
-    public $name;
-    public $program;
-    public $year_level;
-    public $email;
-    public $password;
-    public $status;
-    public $role;
-
     function __construct()
     {
         parent::__construct();
@@ -33,13 +23,13 @@ class User extends DataConnection
 
     function studentIDExists($id)
     {
-        $this->student_id = $this->escapeValue($id);
+        $student_id = $this->escapeValue($id);
 
         $query = "select student_id from users where student_id=?;";
         $stmt = $this->con->stmt_init();
 
         if ($stmt->prepare($query)) {
-            $stmt->bind_param("s", $this->student_id);
+            $stmt->bind_param("s", $student_id);
             $stmt->execute();
             $que_result = $stmt->get_result();
             if ($que_result->num_rows > 0) {
@@ -62,13 +52,13 @@ class User extends DataConnection
 
     function emailExist($email)
     {
-        $this->email = $this->escapeValue($email);
+        $email = $this->escapeValue($email);
 
         $query = "select email from users where email=?;";
         $stmt = $this->con->stmt_init();
 
         if ($stmt->prepare($query)) {
-            $stmt->bind_param("s", $this->email);
+            $stmt->bind_param("s", $email);
             $stmt->execute();
             $que_result = $stmt->get_result();
             if ($que_result->num_rows > 0) {
@@ -91,18 +81,18 @@ class User extends DataConnection
 
     function registerUser($student_id, $name, $program, $year_level, $email, $password)
     {
-        $this->student_id = $this->escapeValue($student_id);
-        $this->name = $this->escapeValue($name);
-        $this->program = $this->escapeValue($program);
-        $this->year_level = $this->escapeValue($year_level);
-        $this->email = $this->escapeValue($email);
-        $this->password = $this->escapeValue($password);
+        $student_id = $this->escapeValue($student_id);
+        $name = $this->escapeValue($name);
+        $program = $this->escapeValue($program);
+        $year_level = $this->escapeValue($year_level);
+        $email = $this->escapeValue($email);
+        $password = $this->escapeValue($password);
 
         $query = "insert into users (student_id, name, program, year_level, email, password) values (?, ?, ?, ?, ?, sha2(?, 512))";
         $stmt = $this->con->stmt_init();
 
         if ($stmt->prepare($query)) {
-            $stmt->bind_param("sssiss", $this->student_id, $this->name, $this->program, $this->year_level, $this->email, $this->password);
+            $stmt->bind_param("sssiss", $student_id, $name, $program, $year_level, $email, $password);
             $stmt->execute();
             if ($stmt->affected_rows == 1) {
                 $stmt->close();
@@ -124,8 +114,8 @@ class User extends DataConnection
 
     function authenticateLogin($email, $password)
     {
-        $this->email = $this->escapeValue($email);
-        $this->password = $this->escapeValue($password);
+        $email = $this->escapeValue($email);
+        $password = $this->escapeValue($password);
 
         $result = array();
 
@@ -133,7 +123,7 @@ class User extends DataConnection
         $stmt = $this->con->stmt_init();
 
         if ($stmt->prepare($query)) {
-            $stmt->bind_param("ss", $this->email, $this->password);
+            $stmt->bind_param("ss", $email, $password);
             $stmt->execute();
             $que_result = $stmt->get_result();
             if ($que_result->num_rows === 1) {

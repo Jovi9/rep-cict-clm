@@ -11,13 +11,15 @@
                 <?php
                 if ($_SESSION['auth'][0]['role'] === 0) {
                 ?>
-                    <a href="./app.php?content=students" class="hover:bg-blue-100 border-b-4 border-blue-600 p-5 text-gray-500 text-sm font-medium">
+                    <a href="./app.php?content=students" class="hover:bg-blue-100 border-blue-600 p-5 text-gray-500 text-sm font-medium">
                         Students
                     </a>
                 <?php
                 }
                 ?>
-
+                <a href="./app.php?content=subjects" class="hover:bg-blue-100 border-blue-600 p-5 text-gray-500 text-sm font-medium">
+                    Subjects
+                </a>
                 <button onclick="show()" class=" p-5 text-gray-500 text-sm font-medium"><?php echo $_SESSION['auth'][0]['name']; ?></button>
                 <a id="item" href="./functions/Logout.php" class="hidden absolute right-0 ml-36 mt-12 px-5 py-1 rounded-md border-2  hover:text-red-500 border-gray-500 bg-white text-gray-500 text-sm font-medium">
                     Logout</a>
@@ -37,13 +39,18 @@
                     if ($_SESSION['auth'][0]['role'] === 0) {
                     ?>
                         <a href="./app.php?content=students" class="text-gray-500 hover:text-gray-900 font-medium ">
-                            <li class="bg-blue-300 py-1 pl-7 border-l-4 border-blue-600">
+                            <li class=" py-1 pl-7 border-blue-600">
                                 Students
                             </li>
                         </a>
                     <?php
                     }
                     ?>
+                    <a href="./app.php?content=subjects" class="text-gray-500 hover:text-gray-900 font-medium ">
+                        <li class="py-1 pl-7 border-blue-600">
+                            Subjects
+                        </li>
+                    </a>
 
                     <li class=" py-1 pl-7">
                         <p class="text-gray-500 font-medium"><?php echo $_SESSION['auth'][0]['name']; ?></p>
