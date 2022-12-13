@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && realpath(__FILE__) == realpath($_SERV
     exit();
 }
 
-if ($_SESSION['auth'][0]['role'] === 0) {
+if ($_SESSION['auth'][0]['role'] == 0) {
 ?>
 
     <?php
@@ -96,12 +96,13 @@ if ($_SESSION['auth'][0]['role'] === 0) {
                         </td>
                         <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                             <span class="inline-block w-1/3 md:hidden font-bold mb-2">Actions</span>
-                            <form action="./functions/SubjectDownload.php?subject=<?php echo $result['file_dir']; ?>" method="post">
+                            <form action="./functions/SubjectDownload.php" method="get">
                                 <input type="hidden" name="file_name" value="<?php echo $result['file_dir']; ?>">
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded" type="submit" name="download">Download File</button>
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded" type="submit">Download File</button>
                             </form>
                         </td>
                     </tr>
+                    <!-- ?download=<?php echo $result['file_dir']; ?> -->
             <?php
                 }
             }
@@ -196,9 +197,9 @@ if ($_SESSION['auth'][0]['role'] === 0) {
                         </td>
                         <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                             <span class="inline-block w-1/3 md:hidden font-bold mb-2">Actions</span>
-                            <form action="./functions/SubjectDownload.php?subject=<?php echo $result['file_dir']; ?>" method="post">
+                            <form action="./functions/SubjectDownload.php" method="get">
                                 <input type="hidden" name="file_name" value="<?php echo $result['file_dir']; ?>">
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded" type="submit" name="download">Download File</button>
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded" type="submit">Download File</button>
                             </form>
                         </td>
                     </tr>
