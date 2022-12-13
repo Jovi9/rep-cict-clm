@@ -1,10 +1,12 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
-    header('HTTP/1.0 403 Forbidden', TRUE, 403);
-    die("<h2>Access Denied!</h2> This file is protected and not available to public.");
+    // header('HTTP/1.0 403 Forbidden', TRUE, 403);
+    // die("<h2>Access Denied!</h2> This file is protected and not available to public.");
+    header('location: ../../index.php');
+    exit();
 }
 
-require '../functions/DataConnection.php';
+require  __DIR__ . '/../functions/DataConnection.php';
 
 
 class User extends DataConnection
@@ -127,7 +129,7 @@ class User extends DataConnection
 
         $result = array();
 
-        $query = "select name, program, year_level, email, status, role from users where email=? and password=sha2(?, 512);";
+        $query = "select id, student_id, name, program, year_level, email, status, role from users where email=? and password=sha2(?, 512);";
         $stmt = $this->con->stmt_init();
 
         if ($stmt->prepare($query)) {
@@ -151,5 +153,83 @@ class User extends DataConnection
         $stmt->close();
 
         return $result;
+    }
+
+    function getStudents()
+    {
+        $result = array();
+
+        $query = "select id, student_id, name, program, year_level, email, status, role from users where not status=? order by status desc, program, year_level, name;";
+        $stmt = $this->con->stmt_init();
+        $role = 'administration';
+        if ($stmt->prepare($query)) {
+            $stmt->bind_param("s", $role);
+            $stmt->execute();
+            $que_result = $stmt->get_result();
+            if ($que_result->num_rows > 0) {
+                $result = $que_result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                $result = null;
+            }
+        } else {
+            $stmt->close();
+            $_SESSION['request_failed'] = "Failed to process request. Please try again.";
+            header('location: ./app.php');
+            exit();
+        }
+        $stmt->close();
+        return $result;
+    }
+
+    function approveStudentByID($id)
+    {
+        $id = $this->escapeValue($id);
+        $status = 'approved';
+
+        $query = "update users set status=? where id=?;";
+        $stmt = $this->con->stmt_init();
+
+        if ($stmt->prepare($query)) {
+            $stmt->bind_param("si", $status, $id);
+            $stmt->execute();
+            if ($stmt->affected_rows == 1) {
+                $stmt->close();
+                return true;
+            } else {
+                $stmt->close();
+                return false;
+            }
+        } else {
+            $stmt->close();
+            $_SESSION['request_failed'] = "Failed to process request. Please try again.";
+            header('location: ../../register.php');
+            exit();
+        }
+    }
+
+    function declineStudentByID($id)
+    {
+        $id = $this->escapeValue($id);
+        $status = 'declined';
+
+        $query = "update users set status=? where id=?;";
+        $stmt = $this->con->stmt_init();
+
+        if ($stmt->prepare($query)) {
+            $stmt->bind_param("si", $status, $id);
+            $stmt->execute();
+            if ($stmt->affected_rows == 1) {
+                $stmt->close();
+                return true;
+            } else {
+                $stmt->close();
+                return false;
+            }
+        } else {
+            $stmt->close();
+            $_SESSION['request_failed'] = "Failed to process request. Please try again.";
+            header('location: ../../register.php');
+            exit();
+        }
     }
 }

@@ -1,10 +1,12 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
-    header('HTTP/1.0 403 Forbidden', TRUE, 403);
-    die("<h2>Access Denied!</h2> This file is protected and not available to public.");
+    // header('HTTP/1.0 403 Forbidden', TRUE, 403);
+    // die("<h2>Access Denied!</h2> This file is protected and not available to public.");
+    header('location: ../../index.php');
+    exit();
 }
 
-require '../model/User.php';
+require __DIR__ . '/../model/User.php';
 
 if (!isset($_SESSION['auth'])) {
 
@@ -19,6 +21,10 @@ if (!isset($_SESSION['auth'])) {
         if (!$result == null) {
             if ($result[0]['status'] == 'pending') {
                 $_SESSION['pending'] = 'Your account is pending for approval.';
+                header('location: ../../login.php');
+                exit();
+            } elseif ($result[0]['status'] == 'declined') {
+                $_SESSION['declined'] = 'Your account has been declined. Please go to the faculty office for information.';
                 header('location: ../../login.php');
                 exit();
             }

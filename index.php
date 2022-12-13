@@ -20,7 +20,7 @@ if (isset($_SESSION['auth'])) {
         <div>
             <div class="flex justify-center ">
                 <div>
-                    <img src="/src/CSU_logo.png" alt="" class="md:flex  object-contain m-3 p-1 md:h-20 md:w-20 h-16 w-16">
+                    <img src="./clm/images/CSU_logo.png" alt="Logo" class="md:flex  object-contain m-3 p-1 md:h-20 md:w-20 h-16 w-16">
                 </div>
                 <div class="self-center ">
                     <h1 class="flex justify-center text-sm font-bold  md:text-xl">Catanduanes State University</h1>
@@ -33,7 +33,7 @@ if (isset($_SESSION['auth'])) {
                     <h1 class="flex justify-center text-sm font-bold md:text-xl">Virac, Catanduanes</h1>
                 </div>
                 <div>
-                    <img src="/src/cict-logo.png" alt="" class="md:flex  object-contain m-3 p-1 md:h-20 md:w-20 h-16 w-16">
+                    <img src="./clm/images/cict-logo.png" alt="Logo" class="md:flex  object-contain m-3 p-1 md:h-20 md:w-20 h-16 w-16">
                 </div>
             </div>
             <div class="my-10 px-3 flex justify-center p-5 ">

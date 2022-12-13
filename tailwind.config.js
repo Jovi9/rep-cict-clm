@@ -2,7 +2,8 @@
 module.exports = {
   content: [
     './*.php',
-    './clm/*.{php,html,js}'
+    './clm/*.{php,html,js}',
+    './clm/includes/*.php'
   ],
   theme: {
     extend: {},
