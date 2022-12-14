@@ -15,6 +15,33 @@ if (isset($_SESSION['auth'])) {
         $fileName = $_GET['file_name'];
         $filePath = '../pdf/' . $fileName;
 
+        $program = $_SESSION['auth'][0]['program'];
+        $year_level = $_SESSION['auth'][0]['year_level'];
+        $role = $_SESSION['auth'][0]['role'];
+
+        if ($role == 1) {
+            $subject = new Subject;
+            $results = $subject->getSubjectsByYearLevel($program, $year_level);
+
+            $subjects = array();
+            if ($results) {
+                foreach ($results as $result) {
+                    $list  = $result['file_dir'];
+                    array_push($subjects, $list);
+                    unset($list);
+                }
+                if (!in_array($fileName, $subjects)) {
+                    $_SESSION['no_permission'] = "You do not have permission to download this file.";
+                    header('location: ../app.php?content=subjects');
+                    exit();
+                }
+            } else {
+                $_SESSION['dl_failed'] = "Failed to download file, please try again.";
+                header('location: ../app.php?content=subjects');
+                exit();
+            }
+        }
+
         if (!empty($fileName) && file_exists($filePath)) {
             header("Cache-Control: public");
             header("Content-Description: File Transfer");
