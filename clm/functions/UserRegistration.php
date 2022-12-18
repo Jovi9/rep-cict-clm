@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && realpath(__FILE__) == realpath($_SERV
 require __DIR__ . '/../model/User.php';
 
 if (!isset($_SESSION['auth'])) {
-
+    // user registration
     if (isset($_POST['register'])) {
         $student_id = $_POST['student_id'];
         $name = $_POST['name'];

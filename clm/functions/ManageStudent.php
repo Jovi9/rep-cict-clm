@@ -10,7 +10,7 @@ require __DIR__ . '/../model/User.php';
 
 session_start();
 if (isset($_SESSION['auth'])) {
-
+    // manage students approve or decline revoke reapprove
     if (isset($_POST['approve'])) {
         $id = $_POST['id'];
         $user = new User;

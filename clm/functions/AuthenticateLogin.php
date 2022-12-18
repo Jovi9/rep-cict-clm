@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && realpath(__FILE__) == realpath($_SERV
 require __DIR__ . '/../model/User.php';
 
 if (!isset($_SESSION['auth'])) {
-
+    // use to verify user credentials
     if (isset($_POST['login'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];

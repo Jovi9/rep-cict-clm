@@ -1,4 +1,5 @@
 <?php
+// logout user
 session_start();
 if (isset($_SESSION['auth'])) {
     session_unset();

@@ -10,7 +10,7 @@ require __DIR__ . '/../model/Subject.php';
 
 session_start();
 if (isset($_SESSION['auth'])) {
-
+    // download specific file
     if (isset($_GET['file_name'])) {
         $fileName = $_GET['file_name'];
         $filePath = '../pdf/' . $fileName;

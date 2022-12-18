@@ -10,7 +10,7 @@ require __DIR__ . '/../model/Subject.php';
 
 session_start();
 if (isset($_SESSION['auth'])) {
-
+    // create new subject for cousrse
     if (isset($_POST['create'])) {
         $code = $_POST['subject_code'];
         $desc = $_POST['subject_desc'];
